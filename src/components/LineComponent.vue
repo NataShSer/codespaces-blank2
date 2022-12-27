@@ -1,5 +1,5 @@
 <template>
-    <Pie
+    <LineChartGenerator
       :chart-options="chartOptions"
       :chart-data="chartData"
       :chart-id="chartId"
@@ -13,28 +13,38 @@
   </template>
   
   <script>
-  import { Pie } from 'vue-chartjs/legacy'
+  import { Line as LineChartGenerator} from 'vue-chartjs/legacy'
   
   import {
     Chart as ChartJS,
     Title,
     Tooltip,
     Legend,
-    ArcElement,
-    CategoryScale
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement
   } from 'chart.js'
   
-  ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
+  ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement
+  )
   
   export default {
-    name: 'PieChart',
+    name: 'LineChart',
     components: {
-      Pie
+        LineChartGenerator
     },
     props: {
       chartId: {
         type: String,
-        default: 'pie-chart'
+        default: 'line-chart'
       },
       datasetIdKey: {
         type: String,
@@ -65,11 +75,12 @@
     data() {
       return {
         chartData: {
-          labels: ["bachelor's degree", "some college", "master's degree", "associate's degree", "high school", "some high school"],
+          labels: ['A', 'B', 'C', 'D'],
           datasets: [
             {
-              backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16', '#FF1493', '#00FFFF'],
-              data: [0, 0, 0, 0, 0, 0]
+              label: 'Студенты',
+              backgroundColor: '#f87979',
+              data: [0, 0, 0, 0]
             }
           ]
         },
@@ -81,19 +92,15 @@
     },
     created() {
         this.dataset.forEach(student => {
-        if (student["parental level of education"] == "bachelor's degree")
+        if (student.race.ethnicity == "group A")
             this.chartData.datasets[0].data[0]++;
-        else if (student["parental level of education"] == "some college")
+        else if (student.race.ethnicity == "group B")
             this.chartData.datasets[0].data[1]++;
-        else if (student["parental level of education"] == "master's degree")
+        else if (student.race.ethnicity == "group C")
             this.chartData.datasets[0].data[2]++;
-        else if (student["parental level of education"] == "associate's degree")
+        else
             this.chartData.datasets[0].data[3]++;
-        else if (student["parental level of education"] == "high school")
-            this.chartData.datasets[0].data[4]++;
-        else if (student["parental level of education"] == "some high school")
-            this.chartData.datasets[0].data[5]++;
         });
+    }
   }
-}
   </script>
