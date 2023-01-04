@@ -14,6 +14,7 @@
 
 <script>
 import { Bar } from 'vue-chartjs/legacy'
+
 import {
   Chart as ChartJS,
   Title,
@@ -23,7 +24,9 @@ import {
   CategoryScale,
   LinearScale
 } from 'chart.js'
+
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 export default {
   name: 'BarChart',
   components: {
@@ -71,23 +74,13 @@ export default {
         ],
         datasets: [
           {
-            label: 'group A',
+            label: 'lunch standard',
             backgroundColor: '#41B883',
             data: [0, 0, 0, 0]
           },
           {
-            label: 'group B',
+            label: 'lunch free/reduced',
             backgroundColor: '#E46651',
-            data: [0, 0, 0, 0]
-          },
-          {
-            label: 'group C',
-            backgroundColor: '#00D8FF',
-            data: [0, 0, 0, 0]
-          },
-          {
-            label: 'group D',
-            backgroundColor: '#DD1B16',
             data: [0, 0, 0, 0]
           },
         ]
@@ -101,10 +94,10 @@ export default {
   created() {
     this.dataset.forEach(student => {
       var col = 0;
-           if (student.race.ethnicity == "group A") col = 0;
-      else if (student.race.ethnicity == "group B") col = 1;
-      else if (student.race.ethnicity == "group C") col = 2;
-      else if (student.race.ethnicity == "group D") col = 3;
+      
+           if (student.lunch == "standard") col = 0;
+      else if (student.lunch == "free/reduced") col = 1;
+
            if (student["math score"] < 25) this.chartData.datasets[col].data[0]++;
       else if (student["math score"] < 50) this.chartData.datasets[col].data[1]++;
       else if (student["math score"] < 75) this.chartData.datasets[col].data[2]++;
