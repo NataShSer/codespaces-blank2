@@ -65,11 +65,11 @@
     data() {
       return {
         chartData: {
-          labels: ['A', 'B', 'C', 'D'],
+          labels: ["bachelor's degree", "some college", "master's degree", "associate's degree", "high school", "some high school"],
           datasets: [
             {
-              backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-              data: [0, 0, 0, 0]
+              backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16', '#FF1493', '#00FFFF'],
+              data: [0, 0, 0, 0, 0, 0]
             }
           ]
         },
@@ -81,15 +81,19 @@
     },
     created() {
         this.dataset.forEach(student => {
-        if (student.race.ethnicity == "group A")
+        if (student["parental level of education"] == "bachelor's degree")
             this.chartData.datasets[0].data[0]++;
-        else if (student.race.ethnicity == "group B")
+        else if (student["parental level of education"] == "some college")
             this.chartData.datasets[0].data[1]++;
-        else if (student.race.ethnicity == "group C")
+        else if (student["parental level of education"] == "master's degree")
             this.chartData.datasets[0].data[2]++;
-        else
+        else if (student["parental level of education"] == "associate's degree")
             this.chartData.datasets[0].data[3]++;
+        else if (student["parental level of education"] == "high school")
+            this.chartData.datasets[0].data[4]++;
+        else if (student["parental level of education"] == "some high school")
+            this.chartData.datasets[0].data[5]++;
         });
-    }
   }
+}
   </script>
